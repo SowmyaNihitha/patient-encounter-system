@@ -14,8 +14,7 @@ load_dotenv()
 # - CI/Test: SQLite in-memory fallback
 # -------------------------------------------------
 DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "sqlite+pysqlite:///./test.db"  # fallback for CI / tests
+    "DATABASE_URL", "sqlite+pysqlite:///./test.db"  # fallback for CI / tests
 )
 
 # -------------------------------------------------
@@ -53,6 +52,7 @@ metadata = MetaData(
 # Declarative Base (SQLAlchemy 2.0 compatible)
 # -------------------------------------------------
 Base = declarative_base(metadata=metadata)
+
 
 # -------------------------------------------------
 # Dependency for FastAPI
