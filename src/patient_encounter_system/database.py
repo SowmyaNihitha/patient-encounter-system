@@ -15,7 +15,7 @@ load_dotenv()
 # -------------------------------------------------
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "sqlite+pysqlite:///:memory:"  # fallback for CI / tests
+    "sqlite+pysqlite:///./test.db"  # fallback for CI / tests
 )
 
 # -------------------------------------------------
