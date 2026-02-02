@@ -1,27 +1,62 @@
+import os
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 
-# Database URL for MySQL/PyMySQL
-DATABASE_URL = "mysql+pymysql://mongouhd_evernorth:U*dgQkKRuEHe@cp-15.webhostbox.net:3306/mongouhd_evernorth"
+# -------------------------------------------------
+# Load environment variables (.env for local)
+# -------------------------------------------------
+load_dotenv()
 
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# -------------------------------------------------
+# Database URL
+# - Local: MySQL from .env
+# - CI/Test: SQLite in-memory fallback
+# -------------------------------------------------
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "sqlite+pysqlite:///:memory:"  # fallback for CI / tests
+)
 
-# Naming convention for tables
+# -------------------------------------------------
+# SQLAlchemy Engine
+# -------------------------------------------------
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    future=True,
+)
+
+# -------------------------------------------------
+# Session factory
+# -------------------------------------------------
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+)
+
+# -------------------------------------------------
+# Naming convention (production-grade)
+# -------------------------------------------------
 metadata = MetaData(
     naming_convention={
-        "ix": "ix_sivapriya_%(column_0_label)s",
-        "uq": "uq_sivapriya_%(table_name)s_%(column_0_name)s",
-        "ck": "ck_sivapriya_%(table_name)s_%(constraint_name)s",
-        "fk": "fk_sivapriya_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-        "pk": "pk_sivapriya_%(table_name)s",
+        "ix": "ix_nihitha_%(column_0_label)s",
+        "uq": "uq_nihitha_%(table_name)s_%(column_0_name)s",
+        "ck": "ck_nihitha_%(table_name)s_%(constraint_name)s",
+        "fk": "fk_nihitha_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+        "pk": "pk_nihitha_%(table_name)s",
     }
 )
 
+# -------------------------------------------------
+# Declarative Base (SQLAlchemy 2.0 compatible)
+# -------------------------------------------------
 Base = declarative_base(metadata=metadata)
 
-
+# -------------------------------------------------
+# Dependency for FastAPI
+# -------------------------------------------------
 def get_db():
     db = SessionLocal()
     try:
