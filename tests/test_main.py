@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 from datetime import datetime, timedelta, timezone
-from src.patient_encounter_system.main import app
-from src.patient_encounter_system.database import engine, Base
+from src.main import app
+from src.database import engine, Base
 
 client = TestClient(app)
 

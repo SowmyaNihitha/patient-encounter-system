@@ -4,10 +4,10 @@ from sqlalchemy import func
 from typing import List, Optional
 from datetime import date
 
-from src.patient_encounter_system.database import engine, Base, get_db
-from src.patient_encounter_system.models import models
-from src.patient_encounter_system.schemas import schemas
-from src.patient_encounter_system.services import clinic_service
+from src.database import engine, Base, get_db
+from src.models import models
+from src.schemas import schemas
+from src.services import clinic_service
 
 # Initialize Tables
 Base.metadata.create_all(bind=engine)

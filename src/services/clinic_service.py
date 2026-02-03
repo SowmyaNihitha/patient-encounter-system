@@ -2,7 +2,7 @@ from datetime import timedelta, timezone
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
-from src.patient_encounter_system.models.models import Doctor, Appointment
+from src.models.models import Doctor, Appointment
 
 
 def _to_utc(dt):

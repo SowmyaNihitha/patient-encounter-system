@@ -9,7 +9,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from src.patient_encounter_system.database import Base
+from src.database import Base
 
 
 class Patient(Base):
